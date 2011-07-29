@@ -1,31 +1,21 @@
 ;(function( $ ){
 	$.fn.extend({
+		
 		inViewport: function(){
-			var self = $(this),
-				scrollTop = $(window).scrollTop(),
-				windowHeight = $(window).height(),
-				offset = self.offset(),
-				elementBottom = offset.top + self.height() - scrollTop,
-				elementTop = offset.top - scrollTop,
-				position = 0;
-
-				var a = elementTop - (windowHeight - self.height()) > self.height() ? self.height() : elementTop - (windowHeight - self.height());
-					a = a > 0 ? a : 0;
-				var b = elementBottom > self.height() ? self.height() : elementBottom;
-					b = b > 0 ? b : 0;
-				var vpVisibility = (b-a) / self.height();
-				self.data('vpVisibility', vpVisibility);
-			return vpVisibility;
-		},
-		mostVisible: function(){
 			var visibleElements = [];
-			var mostVisible = null;
-			var highestVisibility = 0;
 			this.each(function(){
-				if($(this).inViewport(true)){
+				if($.inViewport(this)){
 					visibleElements.push(this);
 				}	
 			});
+			return this.pushStack(visibleElements);
+		},
+		
+		mostVisible: function(){
+			var visibleElements = this.inViewport(),
+				mostVisible = null,
+				highestVisibility = 0;
+			
 			$.each(visibleElements, function(index, element){
 				if(elementVisibility = $(element).data('vpVisibility')){
 					if(elementVisibility > highestVisibility){
@@ -38,4 +28,22 @@
 			return mostVisible;
 		}
 	});
+	
+	$.inViewport = function(element){
+		var element = $(element),
+			scrollTop = $(window).scrollTop(),
+			windowHeight = $(window).height(),
+			offset = element.offset(),
+			elementBottom = offset.top + element.height() - scrollTop,
+			elementTop = offset.top - scrollTop,
+			a,b;
+			a = elementTop - (windowHeight - element.height()) > element.height() ? element.height() : elementTop - (windowHeight - element.height());
+			a = a > 0 ? a : 0;
+			b = elementBottom > element.height() ? element.height() : elementBottom;
+			b = b > 0 ? b : 0;
+			vpVisibility = (b-a) / element.height();
+			element.data('vpVisibility', vpVisibility);
+		return vpVisibility;
+	};
+	
 })( jQuery );
