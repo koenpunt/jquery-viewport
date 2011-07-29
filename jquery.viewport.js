@@ -1,3 +1,15 @@
+/*!
+ * jQuery Viewport Plugin
+ *
+ * Date: Jul 29 2011
+ *
+ * Copyright 2011, Koen Punt / http://www.koenpunt.nl
+ * Dual licensed under the MIT and GPL licenses (just like jQuery):
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+*/
+
 ;(function( $ ){
 	$.fn.extend({
 		
