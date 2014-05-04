@@ -1,14 +1,15 @@
-h1. jQuery viewport plugin
+# jQuery viewport plugin
 
-h2. Features
+## Features
 
-h3. $.fn.inViewport
+### $.fn.inViewport
+
 * Returns the elements from the selection which are visible in the viewport
 
-h3. $.fn.mostVisible
+### $.fn.mostVisible
 
 * Calculates the first most visible element in the viewport
 
-h3. $.inViewport( element )
+### $.inViewport( element )
 
 * Returns the element's visibility in the viewport in a range from 0 (not visible) to 1 (completely visible)
