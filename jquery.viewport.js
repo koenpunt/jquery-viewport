@@ -9,31 +9,25 @@
 ;(function( $ ){
   $.fn.extend({
 
-    inViewport: function(){
-      var visibleElements = [];
-      this.each(function(){
-        if($.inViewport(this)){
-          visibleElements.push(this);
-        }
+    inViewport: function(options){
+      var visibleElements = this.filter(function(){
+        return $.inViewport(this, options);
       });
       return this.pushStack(visibleElements);
     },
 
     mostVisible: function(){
       var visibleElements = this.inViewport()
-        , mostVisible = null
-        , highestVisibility = 0;
+        , max = 0, visibility, mostVisible;
 
-      $.each(visibleElements, function(index, element){
-        if(elementVisibility = $(element).data('vpVisibility')){
-          if(elementVisibility > highestVisibility){
-            highestVisibility = elementVisibility;
-            mostVisible = $(element);
-          }
+      visibleElements.each(function(i, el){
+        visibility = $(el).data('vpVisibility');
+        if(visibility > max){
+          max = visibility;
+          mostVisible = el;
         }
       });
-
-      return mostVisible;
+      return $(mostVisible);
     }
   });
 
@@ -41,7 +35,7 @@
 
   $.inViewport = function(element, options){
     var element = $(element)
-      , opts = $.extend({}, defaults, options)
+      , opts = $.extend({}, defaults, options || {})
       , scrollTop = $(window).scrollTop() + opts.offsetTop
       , windowHeight = $(window).height() - opts.offsetTop - opts.offsetBottom
       , offset = element.offset()
