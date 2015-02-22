@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>jQuery viewport plugin</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -16,38 +16,35 @@
         .item {
           display: block;
           position: absolute;
+          left: 0px;
+          width: 100%;
           background: #f00;
           color: #fff;
           font-size: 50px;
           text-align: center;
+          border: 3px solid #e00;
+          box-sizing: border-box;
         }
         #item-1 {
-          top: 100px;
-          left: 100px;
-          width: 100px;
+          top: 50px;
           height: 100px;
           line-height: 100px;
         }
         #item-2 {
           top: 200px;
-          left: 200px;
-          width: 400px;
           height: 400px;
           line-height: 400px;
         }
         #item-3 {
-          top: 600px;
-          left: 600px;
-          width: 800px;
+          top: 650px;
           height: 800px;
           line-height: 800px;
         }
         #item-4 {
-          top: 1400px;
-          left: 1400px;
-          width: 1600px;
+          top: 1500px;
           height: 1600px;
           line-height: 1600px;
+          margin-bottom: 50px;
         }
         .console {
           position: fixed;
@@ -71,11 +68,12 @@
 
         <div class="console"></div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="//rawgit.com/koenpunt/jquery-viewport/master/jquery.viewport.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="jquery.viewport.js"></script>
         <script>
         $(function(){
           var items = $('.item');
+          items.mostVisible();
           $(window).on('scroll', function(){
             var strings = items.map(function(){
               return this.innerText + ': ' + $.inViewport(this).toFixed(6);
