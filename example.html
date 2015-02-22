@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+        }
+        .item {
+          display: block;
+          position: absolute;
+          background: #f00;
+          color: #fff;
+          font-size: 50px;
+          text-align: center;
+        }
+        #item-1 {
+          top: 100px;
+          left: 100px;
+          width: 100px;
+          height: 100px;
+          line-height: 100px;
+        }
+        #item-2 {
+          top: 200px;
+          left: 200px;
+          width: 400px;
+          height: 400px;
+          line-height: 400px;
+        }
+        #item-3 {
+          top: 600px;
+          left: 600px;
+          width: 800px;
+          height: 800px;
+          line-height: 800px;
+        }
+        #item-4 {
+          top: 1400px;
+          left: 1400px;
+          width: 1600px;
+          height: 1600px;
+          line-height: 1600px;
+        }
+        .console {
+          position: fixed;
+          top: 0;
+          right: 0;
+          padding: 20px;
+          background: #eee;
+        }
+        </style>
+
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="item" id="item-1">1</div>
+        <div class="item" id="item-2">2</div>
+        <div class="item" id="item-3">3</div>
+        <div class="item" id="item-4">4</div>
+
+        <div class="console"></div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="//rawgit.com/koenpunt/jquery-viewport/master/jquery.viewport.js"></script>
+        <script>
+        $(function(){
+          var items = $('.item');
+          $(window).on('scroll', function(){
+            var strings = items.map(function(){
+              return this.innerText + ': ' + $.inViewport(this).toFixed(6);
+            }).toArray();
+            $('.console').html(strings.join('<br>'));
+          }).trigger('scroll');
+        });
+        </script>
+    </body>
+</html>
