@@ -34,32 +34,28 @@
   var defaults = {offsetTop: 0, offsetBottom: 0};
 
   $.inViewport = function(element, options){
-    var element = $(element)
-      , opts = $.extend({}, defaults, options || {})
-      , scrollTop = $(window).scrollTop() + opts.offsetTop
-      , windowHeight = $(window).height() - opts.offsetTop - opts.offsetBottom
-      , offset = element.offset()
-      , elementBottom = offset.top + element.height() - scrollTop
-      , elementTop = offset.top - scrollTop
-      , a, b;
+    var $element = $(element), opts, scrollTop, viewportHeight
+      , elementHeight, elementOffset, elementTop, elementBottom
+      , a, b, visibility;
 
-    if(elementTop - (windowHeight - element.height()) > element.height()){
-      a = element.height();
-    }else{
-      a = elementTop - (windowHeight - element.height());
-    }
-    a = a > 0 ? a : 0;
+    opts = $.extend({}, defaults, options || {});
 
-    if(elementBottom > element.height()){
-      b = element.height();
-    }else{
-      b = elementBottom;
-    }
-    b = b > 0 ? b : 0;
+    scrollTop = $(window).scrollTop();
+    viewportHeight = $(window).height() - opts.offsetTop - opts.offsetBottom;
 
-    vpVisibility = (b-a) / element.height();
-    element.data('vpVisibility', vpVisibility);
-    return vpVisibility;
+    elementHeight = $element.height();
+    elementOffset = $element.offset();
+    elementTop = elementOffset.top - scrollTop - opts.offsetTop;
+    elementBottom = elementTop + elementHeight;
+
+    a = Math.max(0, Math.min(elementTop - (viewportHeight - elementHeight), elementHeight));
+    b = Math.max(0, Math.min(elementBottom, elementHeight));
+
+    visibility = ( b - a ) / elementHeight;
+
+    $element.data('vpVisibility', visibility);
+
+    return visibility;
   };
 
 })( jQuery );
